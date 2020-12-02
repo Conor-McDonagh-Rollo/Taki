@@ -1,9 +1,16 @@
 import discord 
 import tweepy
 import random
+import praw
 from discord.ext import commands
 
 client = commands.Bot(command_prefix = "taki ")
+
+reddit = praw.Reddit(client_id="vB6F1V_6QUX71w",
+                     client_secret="iNLHyGBER_hDH2PYGCGOwEvTO-23Kw",
+                     password="5YmcZbDKemmpPA",
+                     user_agent="bot taki",
+                     username="taki-bot")
 
 try:
     authenticator = open("authenticator.taki","r+") 
@@ -43,6 +50,11 @@ async def monkey(ctx):
     monke=discord.Embed(title="Mmmm Monke")
     monke.set_image(url=f"{random.choice(monkeys)}")
     await ctx.send("Monkey",embed=monke)
+
+@client.command(aliases=["crusade", "jo"])
+async def jojo(ctx):
+    print("Grabbing jojo ass...")
+
 
 @client.command(aliases=["8ball"])
 async def _8ball(ctx, *, question):
