@@ -7,7 +7,6 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix = "taki ", case_insensitive=True)
 client.remove_command("help")
-await client.change_presence(status=discord.Status.online, activity=discord.Game("taki help ~"))
 
 reddit = praw.Reddit(client_id="vB6F1V_6QUX71w",
                      client_secret="iNLHyGBER_hDH2PYGCGOwEvTO-23Kw",
@@ -29,6 +28,7 @@ def verify(apikey, apikey_secret, accesstoken, accesstoken_secret):
 
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.online, activity=discord.Game("taki help ~"))
     print("client is ready!")
 
 @client.event
