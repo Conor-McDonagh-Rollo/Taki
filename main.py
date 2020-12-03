@@ -4,13 +4,14 @@ import random
 import praw
 from discord.ext import commands
 
-client = commands.Bot(command_prefix = "taki ")
+client = commands.Bot(command_prefix = "taki ", case_insensitive=True)
 
 reddit = praw.Reddit(client_id="vB6F1V_6QUX71w",
                      client_secret="iNLHyGBER_hDH2PYGCGOwEvTO-23Kw",
                      password="5YmcZbDKemmpPA",
                      user_agent="bot taki",
                      username="taki-bot")
+print(reddit.user.me())
 
 try:
     authenticator = open("authenticator.taki","r+") 
@@ -47,13 +48,36 @@ async def monkey(ctx):
                 "https://media1.tenor.com/images/783975700609747c3a6a992becc369a3/tenor.gif",
                 "https://media1.tenor.com/images/c9dc51406b3f5c810ee17ee90fc6d6c3/tenor.gif",
                 "https://media1.tenor.com/images/96209b4b17b56c855217eda1b8c27498/tenor.gif"]
-    monke=discord.Embed(title="Mmmm Monke")
-    monke.set_image(url=f"{random.choice(monkeys)}")
-    await ctx.send("Monkey",embed=monke)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Mmmm Monke", colour=value)
+    embed.set_image(url=f"{random.choice(monkeys)}")
+    await ctx.send("Monkey",embed=embed)
 
 @client.command(aliases=["crusade", "jo"])
 async def jojo(ctx):
     print("Grabbing jojo ass...")
+    top15 = []
+    subreddit = reddit.subreddit("ShitPostCrusaders")
+    posts = subreddit.hot(limit=15)
+    for post in posts:
+        top15.append(post.url)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="So you're approaching me?", colour=value)
+    embed.set_image(url=f"{random.choice(top15)}")
+    await ctx.send("",embed=embed)
+
+@client.command(aliases=["cute"])
+async def wholesome(ctx):
+    print("Cute meme for a cute person")
+    top15 = []
+    subreddit = reddit.subreddit("wholesomegifs")
+    posts = subreddit.hot(limit=15)
+    for post in posts:
+        top15.append(post.url)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Cute meme for a cute person :3", colour=value)
+    embed.set_image(url=f"{random.choice(top15)}")
+    await ctx.send("",embed=embed)
 
 
 @client.command(aliases=["8ball"])
