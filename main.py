@@ -2,9 +2,11 @@ import discord
 import tweepy
 import random
 import praw
+import datetime
 from discord.ext import commands
 
 client = commands.Bot(command_prefix = "taki ", case_insensitive=True)
+client.remove_command("help")
 
 reddit = praw.Reddit(client_id="vB6F1V_6QUX71w",
                      client_secret="iNLHyGBER_hDH2PYGCGOwEvTO-23Kw",
@@ -32,6 +34,8 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Missing required arguments!")
+    else:
+        await ctx.send(f"An error occurred.\nError: `{error}`")
 
 
 @client.command()
@@ -39,15 +43,65 @@ async def ping(ctx):
     print("Pinging")
     await ctx.send(f"Pong! {round(client.latency * 1000)}ms")
 
-@client.command(aliases=["monke", "monki", "monkie"])
-async def monkey(ctx):
+@client.command()
+async def help(ctx):
+    print("Helping a cutie")
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Cute help menu:", colour=value)
+    embed.add_field(name="Image Commands:", value="taki monkey\ntaki jojo\ntaki wholesome\ntaki meme\ntaki dank", inline=True)
+    embed.add_field(name="Cool Commands:", value="taki tweet <Your Tweet>\ntaki 8ball <Your Question?>\ntaki kill <Victim>", inline=True)
+    embed.add_field(name="System Commands:", value="taki ping\ntaki authenticate\ntaki authhelp\ntaki authshow", inline=True)
+    await ctx.send("",embed=embed)
+
+@client.command()
+async def authhelp(ctx):
+    print("Helping a technical cutie")
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Cute advanced help menu OwO:", colour=value)
+    embed.add_field(name="Follow this guide to Authenticate you twitter!", value="Step 1: Create a new twitter for your bot!\nStep 2: Sign up to Twitter Developer and create a new application!\nStep 3: Go into your app settings and change it to read and write!\nStep 4: Get your tokens and regenerate them all!\nStep 5: Use 'taki authenticate' and give taki the keys he asks for!", inline=True)
+    await ctx.send("",embed=embed)
+
+@client.command()
+async def kill(ctx, member: discord.Member):
+    print(f"{ctx.author.display_name} is killing {member.display_name}")
+
+    if ctx.author.display_name != member.display_name:
+        deaths = ["kills", "stabs", "slaughters", "assassinates", "murders", "erases", "exterminates"]
+        murders = ["https://media1.tenor.com/images/a80b2bf31635899ac0900ea6281a41f6/tenor.gif",
+                    "https://media1.tenor.com/images/eb7fc71c616347e556ab2b4c813700d1/tenor.gif",
+                    "https://media1.tenor.com/images/2c945adbbc31699861f411f86ce8058f/tenor.gif",
+                    "https://media1.tenor.com/images/af100ce94589c2f10c7aaadb3a5b27cb/tenor.gif",
+                    "https://media1.tenor.com/images/c8e45541220b07e444e77b814feee38c/tenor.gif",
+                    "https://media1.tenor.com/images/862272da6f71b28b53ec262bcca6763a/tenor.gif",
+                    "https://media1.tenor.com/images/79cc6480652032a20f1cb5c446b113ae/tenor.gif",
+                    "https://media1.tenor.com/images/3daa078c7128766260beea97172e5c46/tenor.gif",
+                    "https://media1.tenor.com/images/48db9d669598ddc1257c612faad38c5e/tenor.gif",
+                    "https://media1.tenor.com/images/b55aace72003e3fa100c208c8fefe250/tenor.gif"]
+        value = random.randint(0, 0xffffff)
+        embed=discord.Embed(title=f"{ctx.author.display_name} {random.choice(deaths)} {member.display_name}", colour=value)
+        embed.set_image(url=f"{random.choice(murders)}")
+        await ctx.send("",embed=embed)
+    else:
+        value = random.randint(0, 0xffffff)
+        embed=discord.Embed(title=f"F for {ctx.author.display_name}", colour=value)
+        embed.set_image(url="https://media1.tenor.com/images/bd67f01a9865f798a70a0ec0ac9c3d3c/tenor.gif?itemid=13980130")
+        await ctx.send("",embed=embed)
+
+@client.command(aliases=["monkey", "monke", "monki", "monkie"])
+async def _monkey(ctx):
     print("Mmmmm Monke")
     monkeys = ["https://media1.tenor.com/images/41cc7fff9a89471443ba89c1578e2a52/tenor.gif",
                 "https://media1.tenor.com/images/090a55f65d9be8da56372f8db6d1a551/tenor.gif",
                 "https://media1.tenor.com/images/4622084b9398de186f3219b6b07b1ddb/tenor.gif",
                 "https://media1.tenor.com/images/783975700609747c3a6a992becc369a3/tenor.gif",
                 "https://media1.tenor.com/images/c9dc51406b3f5c810ee17ee90fc6d6c3/tenor.gif",
-                "https://media1.tenor.com/images/96209b4b17b56c855217eda1b8c27498/tenor.gif"]
+                "https://media1.tenor.com/images/96209b4b17b56c855217eda1b8c27498/tenor.gif",
+                "https://media1.tenor.com/images/77b68c1e9feb33920aee2ae4088da8f3/tenor.gif",
+                "https://media1.tenor.com/images/41c13b91b659560c14b2e4c1506bc09e/tenor.gif",
+                "https://media1.tenor.com/images/aabd9011da88425a21bdc8601588842d/tenor.gif",
+                "https://media1.tenor.com/images/b54c6fca05181a2aa49f55b35e52dd7f/tenor.gif",
+                "https://media1.tenor.com/images/ae96ee628ef967b0e7dcdc4b3dbff0e8/tenor.gif",
+                "https://media1.tenor.com/images/211b4be1f3ac71d07f57e838a373558e/tenor.gif"]
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Mmmm Monke", colour=value)
     embed.set_image(url=f"{random.choice(monkeys)}")
@@ -58,7 +112,7 @@ async def jojo(ctx):
     print("Grabbing jojo ass...")
     top15 = []
     subreddit = reddit.subreddit("ShitPostCrusaders")
-    posts = subreddit.hot(limit=15)
+    posts = subreddit.hot(limit=25)
     for post in posts:
         top15.append(post.url)
     value = random.randint(0, 0xffffff)
@@ -70,14 +124,54 @@ async def jojo(ctx):
 async def wholesome(ctx):
     print("Cute meme for a cute person")
     top15 = []
-    subreddit = reddit.subreddit("wholesomegifs")
-    posts = subreddit.hot(limit=15)
+    subreddit = reddit.subreddit("wholesomememes")
+    posts = subreddit.hot(limit=25)
     for post in posts:
         top15.append(post.url)
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Cute meme for a cute person :3", colour=value)
     embed.set_image(url=f"{random.choice(top15)}")
     await ctx.send("",embed=embed)
+
+@client.command()
+async def meme(ctx):
+    print("Big funny meme")
+    top15 = []
+    subreddit = reddit.subreddit("memes")
+    posts = subreddit.hot(limit=25)
+    for post in posts:
+        top15.append(post.url)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Big funny below", colour=value)
+    embed.set_image(url=f"{random.choice(top15)}")
+    await ctx.send("",embed=embed)
+
+@client.command()
+async def dank(ctx):
+    print("Big funny dank meme")
+    top15 = []
+    subreddit = reddit.subreddit("dankmemes")
+    posts = subreddit.hot(limit=25)
+    for post in posts:
+        top15.append(post.url)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="Big dank funny below", colour=value)
+    embed.set_image(url=f"{random.choice(top15)}")
+    await ctx.send("",embed=embed)
+
+@commands.cooldown(1, 300, commands.BucketType.user)
+@client.command(aliases=["tw"])
+async def tweet(ctx, *, msg):
+    auth = tweepy.OAuthHandler(client.keys[0], client.keys[1])
+    auth.set_access_token(client.keys[2], client.keys[3])
+    api = tweepy.API(auth)
+    print(f"Taki just tweeted {msg}")
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title="{0} just tweeted".format(ctx.author), colour=value)
+    embed.add_field(name="{0}".format(msg), value="At {0}".format(datetime.datetime.now().date()), inline=True)
+    await ctx.send("", embed=embed)
+    api.update_status(msg)
+    print("tweeted")
 
 
 @client.command(aliases=["8ball"])
@@ -115,7 +209,7 @@ async def authshow(ctx):
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("taki authenticate"):
+    if message.content.startswith("taki authenticate") and message.author.guild_permissions.administrator:
         print("attempting to authenticate")
         #API key auth
 
@@ -215,6 +309,9 @@ async def on_message(message):
             await channel.send("*Key has been stored successfully!*")
 
             authenticator = open("authenticator.taki","a+") #open file in append mode
+            authenticator.close()
+            authenticator = open("authenticator.taki","r+")
+            authenticator.truncate(0)
             L = [apikey,"\n", apikey_secret,"\n", accesstoken,"\n", accesstoken_secret] #write tokens
             authenticator.writelines(L) 
             authenticator.close() #close file stream
