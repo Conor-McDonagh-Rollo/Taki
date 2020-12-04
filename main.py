@@ -3,6 +3,7 @@ import tweepy
 import random
 import praw
 import datetime
+import wikipedia
 from discord.ext import commands
 
 client = commands.Bot(command_prefix = "taki ", case_insensitive=True)
@@ -50,7 +51,7 @@ async def help(ctx):
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Cute help menu:", colour=value)
     embed.add_field(name="Image Commands:", value="taki monkey\ntaki jojo\ntaki wholesome\ntaki meme\ntaki dank", inline=True)
-    embed.add_field(name="Cool Commands:", value="taki tweet <Your Tweet>\ntaki 8ball <Your Question?>\ntaki kill <Victim>", inline=True)
+    embed.add_field(name="Cool Commands:", value="taki tweet <Your Tweet>\ntaki 8ball <Your Question?>\ntaki kill <Victim>\ntaki fact <Topic>\ntaki fact random", inline=True)
     embed.add_field(name="System Commands:", value="taki ping\ntaki authenticate\ntaki authhelp\ntaki authshow", inline=True)
     await ctx.send("",embed=embed)
 
@@ -60,6 +61,32 @@ async def authhelp(ctx):
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Cute advanced help menu OwO:", colour=value)
     embed.add_field(name="Follow this guide to Authenticate you twitter!", value="Step 1: Create a new twitter for your bot!\nStep 2: Sign up to Twitter Developer and create a new application!\nStep 3: Go into your app settings and change it to read and write!\nStep 4: Get your tokens and regenerate them all!\nStep 5: Use 'taki authenticate' and give taki the keys he asks for!", inline=True)
+    await ctx.send("",embed=embed)
+
+@client.command()
+async def fact(ctx, *, fact):
+    print("Cute fact for a cute person")
+    if fact != "random":
+        result = wikipedia.search(fact)
+        try:
+            page = wikipedia.page(result[0])
+        except wikipedia.exceptions.DisambiguationError as e:
+            page = wikipedia.page(e.options[0])
+    else:
+        result = wikipedia.random(pages=10)
+        try:
+            page = wikipedia.page(result[0])
+        except wikipedia.exceptions.DisambiguationError as e:
+            page = wikipedia.page(e.options[0])
+        
+    desc = wikipedia.summary(page, sentences=5)
+    if len(desc) > 2000:
+        desc = desc[:2000] + "..."
+
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title=f"{page.title}", description=f"{desc}", colour=value)
+    embed.set_image(url=f"{page.images[0]}")
+    embed.set_footer(text=f"{page.url}")
     await ctx.send("",embed=embed)
 
 @client.command()
