@@ -64,6 +64,18 @@ async def authhelp(ctx):
     await ctx.send("",embed=embed)
 
 @client.command()
+async def christmas(ctx):
+    print("CHRISTMAS")
+    today = datetime.date.today()
+    x = datetime.datetime.now()
+    christmas = datetime.date(int(x.strftime("%Y")), 12, 25)
+    diff = christmas - today
+    msg = ["GET YOUR STOCKING READY", "Time to put up the tree yet?", "Clear out the fireplace!", "Snow is falling, All around us-", "ALL I WANT FOR CHRISTMAS IS-", "Crhistmasasfa TIMEAdiadmi", "Sitting by the fire...", ":D", ":3", "YES"]
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title=f"{diff.days} DAYS UNTIL CHRISTMAS", description=f"{random.choice(msg)}", colour=value)
+    await ctx.send("",embed=embed)
+
+@client.command()
 async def fact(ctx, *, fact):
     print("Cute fact for a cute person")
     if fact != "random":
