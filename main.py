@@ -147,56 +147,74 @@ async def _monkey(ctx):
     embed.set_image(url=f"{random.choice(monkeys)}")
     await ctx.send("Monkey",embed=embed)
 
+@client.command(aliases=["kinky", "bdsm"])
+@commands.is_nsfw()
+async def kink(ctx):
+    print("Someone is sinning")
+    top25 = []
+    subreddit = reddit.subreddit("BDSMGW")
+    posts = subreddit.hot(limit=25)
+    for post in posts:
+        top25.append(post)
+    pick = random.choice(top25)
+    if pick.title == "Mild Megathread - Share your mild images here!":
+        pick = random.choice(top25)
+    value = random.randint(0, 0xffffff)
+    embed=discord.Embed(title=f"{pick.title}", colour=value)
+    embed.set_image(url=f"{pick.url}")
+    embed.set_footer(text=f"Sauce: {pick.url}")
+    await ctx.send("",embed=embed)
+
 @client.command(aliases=["crusade", "jo"])
 async def jojo(ctx):
     print("Grabbing jojo ass...")
-    top15 = []
+    top25 = []
     subreddit = reddit.subreddit("ShitPostCrusaders")
     posts = subreddit.hot(limit=25)
     for post in posts:
-        top15.append(post.url)
+        top25.append(post.url)
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="So you're approaching me?", colour=value)
-    embed.set_image(url=f"{random.choice(top15)}")
+    embed.set_image(url=f"{random.choice(top25)}")
     await ctx.send("",embed=embed)
 
 @client.command(aliases=["cute"])
 async def wholesome(ctx):
     print("Cute meme for a cute person")
-    top15 = []
+    top25 = []
     subreddit = reddit.subreddit("wholesomememes")
     posts = subreddit.hot(limit=25)
     for post in posts:
-        top15.append(post.url)
+        top25.append(post.url)
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Cute meme for a cute person :3", colour=value)
-    embed.set_image(url=f"{random.choice(top15)}")
+    embed.set_image(url=f"{random.choice(top25)}")
     await ctx.send("",embed=embed)
 
 @client.command()
 async def meme(ctx):
     print("Big funny meme")
-    top15 = []
+    top25 = []
     subreddit = reddit.subreddit("memes")
     posts = subreddit.hot(limit=25)
     for post in posts:
-        top15.append(post.url)
+        top25.append(post.url)
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Big funny below", colour=value)
-    embed.set_image(url=f"{random.choice(top15)}")
+    embed.set_image(url=f"{random.choice(top25)}")
     await ctx.send("",embed=embed)
 
 @client.command()
 async def dank(ctx):
     print("Big funny dank meme")
-    top15 = []
+    top25 = []
     subreddit = reddit.subreddit("dankmemes")
     posts = subreddit.hot(limit=25)
     for post in posts:
-        top15.append(post.url)
+        top25.append(post.url)
     value = random.randint(0, 0xffffff)
     embed=discord.Embed(title="Big dank funny below", colour=value)
-    embed.set_image(url=f"{random.choice(top15)}")
+    embed.set_image(url=f"{random.choice(top25)}")
     await ctx.send("",embed=embed)
 
 @commands.cooldown(1, 300, commands.BucketType.user)
