@@ -6,7 +6,11 @@
 
 **Table of Contents**
 
-[TOC]
+- [Taki Bot](#taki-bot)
+    + [What is Taki](#what-is-taki)
+    + [Why Taki](#why-taki)
+    + [What can Taki do](#what-can-taki-do)
+    + [Command list](#command-list)
 
 ### What is Taki?
 
