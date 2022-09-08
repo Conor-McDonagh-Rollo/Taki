@@ -9,9 +9,9 @@ from discord.ext import commands
 client = commands.Bot(command_prefix = "taki ", case_insensitive=True)
 client.remove_command("help")
 
-reddit = praw.Reddit(client_id="vB6F1V_6QUX71w",
-                     client_secret="iNLHyGBER_hDH2PYGCGOwEvTO-23Kw",
-                     password="5YmcZbDKemmpPA",
+reddit = praw.Reddit(client_id="", # Keys must be kept safe
+                     client_secret="", # Keys must be kept safe
+                     password="", # Keys must be kept safe
                      user_agent="bot taki",
                      username="taki-bot")
 print(reddit.user.me())
@@ -379,4 +379,4 @@ async def on_message(message):
 
 
 
-client.run("NzgzMDczMTE0NTAxMjgzODkw.X8Vbqw.jAtubQ7-9BTw4FlUH2ovVBIc-1s")
+client.run("") # Keys must be kept safe
